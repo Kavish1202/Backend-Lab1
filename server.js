@@ -1,15 +1,34 @@
 require('dotenv').config(); 
 const express = require('express');
 const mongoose = require('mongoose');
+const helmet = require('helmet');
 
-// IMPORT YOUR ROUTES HERE
 const taskRoutes = require('./routes/taskRoutes');
 
+const authRoutes = require('./routes/authRoutes');
+const { verifyAPIKey, verifyJWT } = require('./middleware/authMiddleware');
+
 const app = express();
+
+app.use(helmet()); 
+app.disable('x-powered-by');
 
 app.use(express.json());
 
 app.use('/api/tasks', taskRoutes);
+
+app.use('/api/auth', authRoutes);
+
+app.get('/api/protected', verifyAPIKey, (req, res) => {
+    res.status(200).json({ message: 'Success! You have entered the VIP area.' });
+});
+
+app.get('/api/jwt-protected', verifyJWT, (req, res) => {
+    res.status(200).json({ 
+        message: 'Success! You accessed the JWT protected route.',
+        user: req.user // This will show the decoded username!
+    });
+});
 
 const dbURI = process.env.MONGO_URI; 
 
