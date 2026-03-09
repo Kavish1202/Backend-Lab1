@@ -1,12 +1,23 @@
 // routes/taskRoutes.js
 const express = require('express');
 const router = express.Router();
-const { getTasks, createTask } = require('../controllers/taskController');
 
+// Import the controller functions
+const {
+    getTasks,
+    createTask,
+    updateTask,
+    deleteTask
+} = require('../controllers/taskController');
+
+// Route for /api/tasks
 router.route('/')
     .get(getTasks)
     .post(createTask);
 
-// You would add router.route('/:id').put(updateTask).delete(deleteTask);
+// Route for /api/tasks/:id
+router.route('/:id')
+    .put(updateTask)
+    .delete(deleteTask);
 
 module.exports = router;

@@ -1,22 +1,25 @@
-// server.js
-require('dotenv').config();
+require('dotenv').config(); 
 const express = require('express');
 const mongoose = require('mongoose');
+
+// IMPORT YOUR ROUTES HERE
 const taskRoutes = require('./routes/taskRoutes');
 
 const app = express();
 
-// Middleware to parse JSON
 app.use(express.json());
 
-// Routes
 app.use('/api/tasks', taskRoutes);
 
-// Connect to Database and start server
-mongoose.connect(process.env.MONGO_URI)
+const dbURI = process.env.MONGO_URI; 
+
+mongoose.connect(dbURI)
     .then(() => {
-        app.listen(process.env.PORT || 3000, () => {
-            console.log('Connected to DB & Server running on port 3000');
+        console.log('Connected to MongoDB successfully!');
+        app.listen(process.env.PORT, () => {
+            console.log(`Server running on port ${process.env.PORT}`);
         });
     })
-    .catch((error) => console.log(error));
+    .catch((error) => {
+        console.error('Database connection failed:', error.message);
+    });
