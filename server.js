@@ -26,7 +26,7 @@ app.get('/api/protected', verifyAPIKey, (req, res) => {
 app.get('/api/jwt-protected', verifyJWT, (req, res) => {
     res.status(200).json({ 
         message: 'Success! You accessed the JWT protected route.',
-        user: req.user // This will show the decoded username!
+        user: req.user
     });
 });
 
