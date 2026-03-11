@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Tasks</title>
+    <style>
+        table { width: 50%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid black; padding: 10px; text-align: left; }
+        .flash-success { background-color: #d4edda; color: #155724; padding: 10px; margin-bottom: 15px; border: 1px solid #c3e6cb;}
+        .flash-error { background-color: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 15px; border: 1px solid #f5c6cb;}
+    </style>
+</head>
+<body>
+    <a href="/">← Back to Home</a>
+    <h1>Task Management</h1>
+
+    <% if (success_msg.length > 0) { %>
+        <div class="flash-success"><%= success_msg %></div>
+    <% } %>
+    <% if (error_msg.length > 0) { %>
+        <div class="flash-error"><%= error_msg %></div>
+    <% } %>
+
+    <a href="/tasks/new"><button>+ Create New Task</button></a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% tasks.forEach(task => { %>
+                <tr>
+                    <td><%= task.title %></td>
+                    <td><%= task.completed ? '✅ Done' : '❌ Pending' %></td>
+                    <td>
+                        <a href="/tasks/<%= task._id %>">View</a> | 
+                        <a href="/tasks/edit/<%= task._id %>">Edit</a> |
+                        <form action="/tasks/delete/<%= task._id %>" method="POST" style="display:inline;">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</body>
+</html>

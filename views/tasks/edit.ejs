@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Task</title>
+</head>
+<body>
+    <a href="/tasks">← Cancel & Go Back</a>
+    <h1>Edit Task</h1>
+
+    <form action="/tasks/edit/<%= task._id %>" method="POST">
+        <label>Title:</label><br>
+        <input type="text" name="title" value="<%= task.title %>" required><br><br>
+
+        <label>Description:</label><br>
+        <textarea name="description"><%= task.description %></textarea><br><br>
+
+        <label>
+            <input type="checkbox" name="completed" <%= task.completed ? 'checked' : '' %>> Is it completed?
+        </label><br><br>
+
+        <button type="submit">Update Task</button>
+    </form>
+</body>
+</html>

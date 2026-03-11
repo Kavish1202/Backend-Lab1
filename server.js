@@ -70,8 +70,8 @@ app.get('/friday', (req, res) => {
 });
 
 app.use('/api/tasks', taskRoutes);
-
 app.use('/api/auth', authRoutes);
+app.use('/tasks', require('./routes/taskWebRoutes'));
 
 app.get('/api/protected', verifyAPIKey, (req, res) => {
     res.status(200).json({ message: 'Success! You have entered the VIP area.' });
