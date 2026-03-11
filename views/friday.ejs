@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Is it Friday?</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            padding: 50px;
+            transition: background-color 0.5s;
+        }
+        
+        /* The CRAZY Friday CSS */
+        .friday-mode {
+            background-color: #ff00ff; /* Neon Pink */
+            color: #ffff00; /* Neon Yellow */
+            animation: shake 0.5s infinite;
+        }
+
+        @keyframes shake {
+            0% { transform: translate(2px, 1px) rotate(0deg); }
+            20% { transform: translate(-3px, 0px) rotate(2deg); }
+            40% { transform: translate(1px, -2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 2px) rotate(0deg); }
+            80% { transform: translate(2px, -1px) rotate(2deg); }
+            100% { transform: translate(1px, 2px) rotate(-2deg); }
+        }
+    </style>
+</head>
+
+<body class="<%= isFriday ? 'friday-mode' : '' %>">
+    
+    <a href="/">← Back to Home</a>
+    <hr>
+
+    <h1>The Date Checker</h1>
+    <h2>Date: <%= currentDate %></h2>
+    <h2>Day: <%= dayName %></h2>
+
+    <% if (isFriday) { %>
+        
+        <h1 style="font-size: 5rem;">🎉 IT IS FRIDAY!!! 🎉</h1>
+        
+        <marquee scrollamount="50">
+            <h2>🎈 LET'S GOOOOO CRAZY! 🪩🕺💃🔥</h2>
+        </marquee>
+        
+        <img src="https://media.giphy.com/media/11s7Ke7jcNxCHS/giphy.gif" alt="Friday Dance">
+
+    <% } else { %>
+        
+        <p style="font-size: 1.5rem;">Sadly, it is not Friday yet. Keep grinding!</p>
+        
+    <% } %>
+
+</body>
+</html>

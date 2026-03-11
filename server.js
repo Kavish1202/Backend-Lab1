@@ -40,6 +40,35 @@ app.get('/', (req, res) => {
     res.render('index'); 
 });
 
+// ... right under your app.get('/') route ...
+
+// --- THE FRIDAY TESTER ROUTE ---
+app.get('/friday', (req, res) => {
+    // 1. Check for the "cheat code" in the URL (e.g., ?date=2026-02-27)
+    let targetDate;
+    if (req.query.date) {
+        // If they provided a date, use that one
+        targetDate = new Date(req.query.date);
+    } else {
+        // Otherwise, use today's actual date
+        targetDate = new Date();
+    }
+
+    // 2. Figure out the day of the week
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const dayName = days[targetDate.getDay()]; // getDay() returns a number from 0-6
+
+    // 3. Is it Friday? (Friday is index 5)
+    const isFriday = targetDate.getDay() === 5;
+
+    // 4. Send this data to the EJS template
+    res.render('friday', { 
+        currentDate: targetDate.toDateString(), 
+        dayName: dayName, 
+        isFriday: isFriday 
+    });
+});
+
 app.use('/api/tasks', taskRoutes);
 
 app.use('/api/auth', authRoutes);
